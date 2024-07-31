@@ -15,9 +15,13 @@ const TitleBox: React.FC = () => {
     <>
       <TitleStyle>
         <div style={{ textAlign: 'center' }}>
-          <h2>Title</h2>
-          <Button>Button</Button>
-          <Button>Button</Button>
+          <h2 style={{ fontSize: '25px' }}>Title</h2>
+          <Button style={{ backgroundColor: 'gray', color: 'white' }}>
+            Button
+          </Button>
+          <Button style={{ backgroundColor: 'black', color: 'white' }}>
+            Button
+          </Button>
         </div>
       </TitleStyle>
     </>

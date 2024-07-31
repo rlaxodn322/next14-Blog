@@ -17,24 +17,47 @@ const SubBox = styled.div`
 const TitleBox = styled.div`
   margin-bottom: 20px;
 `;
-const StoryBox = styled.div``;
+const ImgBox = styled.div`
+  display: flex;
+`;
+const Img2 = styled.img`
+  width: 15%;
+  margin-right: 10px;
+  cursor: pointer;
+`;
+const StoryBox = styled.div`
+  cursor: pointer;
+  margin-top: 5px;
+`;
 const MiddleFooter: React.FC = () => {
   return (
     <>
       <MainBox>
         <SubBox>
           <div>
-            <img
+            <Img2
               style={{ width: '15%', marginBottom: '30px' }}
               src="icons/sns.svg"
-            ></img>{' '}
+            ></Img2>{' '}
           </div>
-          <div style={{ display: 'flex' }}>
-            <img style={{ width: '15%' }} src="icons/facebook.svg"></img>
-            <img style={{ width: '15%' }} src="icons/naver.svg"></img>
-            <img style={{ width: '15%' }} src="icons/youtube.svg"></img>
-            <img style={{ width: '15%' }} src="icons/insta.svg"></img>
-          </div>
+          <ImgBox style={{ display: 'flex' }}>
+            <Img2
+              style={{ width: '15%', marginRight: '10px' }}
+              src="icons/facebook.svg"
+            ></Img2>
+            <Img2
+              style={{ width: '15%', marginRight: '10px' }}
+              src="icons/naver.svg"
+            ></Img2>
+            <Img2
+              style={{ width: '15%', marginRight: '10px' }}
+              src="icons/youtube.svg"
+            ></Img2>
+            <Img2
+              style={{ width: '15%', marginRight: '10px' }}
+              src="icons/insta.svg"
+            ></Img2>
+          </ImgBox>
         </SubBox>
         <SubBox>
           <TitleBox>Use cases</TitleBox>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 const divparents: React.CSSProperties = {
   margin: '0 auto',
   alignItems: 'center',
@@ -8,22 +7,24 @@ const divparents: React.CSSProperties = {
   justifyContent: 'space-between',
 };
 const divstyle: React.CSSProperties = {
-  padding: '15px 80px',
+  margin: '15px 45px',
   cursor: 'pointer',
 };
+
 const App: React.FC = () => (
   <>
     <div style={{ width: '100%', backgroundColor: 'white' }}>
       <div style={divparents}>
-        <div style={{ width: '20%' }}>
-          <img src="/icons/man.svg" style={{ width: '20%' }}></img>
+        <div style={{ width: '10%' }}>
+          <img src="/icons/man.svg" style={{ width: '40%' }}></img>
         </div>
-        <div style={{ width: '70%', display: 'flex' }}>
-          <div style={divstyle}>1</div>
-          <div style={divstyle}>2</div>
-          <div style={divstyle}>3</div>
-          <div style={divstyle}>4</div>
-          <div style={divstyle}>5</div>
+        <div style={{ width: '80%', display: 'flex' }}>
+          <div style={divstyle}>Pricing</div>
+          <div style={divstyle}>Solutions</div>
+          <div style={divstyle}>Commnuity</div>
+          <div style={divstyle}>Resources</div>
+          <div style={divstyle}>Pricing</div>
+          <div style={divstyle}>Contact</div>
         </div>
       </div>
     </div>
