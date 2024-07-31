@@ -57,7 +57,7 @@ const TitleBox: React.FC = () => {
       </TitleStyle>
       <Modal
         title="Enter Information"
-        visible={isModalOpen}
+        open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCloseModal}
       >

@@ -16,6 +16,11 @@ const SubBox = styled.div`
 `;
 const TitleBox = styled.div`
   margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.3);
+  }
 `;
 const ImgBox = styled.div`
   display: flex;
@@ -24,10 +29,18 @@ const Img2 = styled.img`
   width: 15%;
   margin-right: 10px;
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.3);
+  }
 `;
 const StoryBox = styled.div`
   cursor: pointer;
   margin-top: 5px;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.3);
+  }
 `;
 const MiddleFooter: React.FC = () => {
   return (

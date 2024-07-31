@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import styled from 'styled-components';
 const divparents: React.CSSProperties = {
   margin: '0 auto',
   alignItems: 'center',
@@ -10,6 +11,7 @@ const divparents: React.CSSProperties = {
 const divstyle: React.CSSProperties = {
   margin: '15px 45px',
   cursor: 'pointer',
+  transition: 'transform 0.3s ease-in-out',
 };
 
 const App: React.FC = () => (
