@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Carousel from './Carousel';
 const ImgStyle = styled.div`
   width: 1200px;
   height: 300px;
@@ -9,7 +10,9 @@ const ImgBox: React.FC = () => {
   return (
     <>
       <ImgStyle>
-        <div></div>
+        <div>
+          <Carousel></Carousel>
+        </div>
       </ImgStyle>
     </>
   );
