@@ -24,7 +24,10 @@ const App: React.FC = () => (
           </Link>
         </div>
         <div style={{ width: '80%', display: 'flex' }}>
-          <div style={divstyle}>Pricing</div>
+          <Link href="/blog/01">
+            <div style={divstyle}>게시판</div>
+          </Link>
+
           <div style={divstyle}>Solutions</div>
           <div style={divstyle}>Commnuity</div>
           <div style={divstyle}>Resources</div>
