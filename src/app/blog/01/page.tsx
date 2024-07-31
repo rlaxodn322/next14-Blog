@@ -83,6 +83,20 @@ const DeleteButton = styled(Button)`
   }
 `;
 
+// 수정 버튼 스타일
+const EditButton = styled(Button)`
+  background-color: #4d79ff;
+  color: white;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #003bb3;
+  }
+`;
+
 // 포스트 타입 정의
 interface Post {
   id: number;
@@ -94,6 +108,7 @@ interface Post {
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [newPost, setNewPost] = useState({ title: '', content: '' });
 
   useEffect(() => {
@@ -102,7 +117,14 @@ const Blog: React.FC = () => {
     setPosts(storedPosts);
   }, []);
 
-  const openModal = () => {
+  const openModal = (post?: Post) => {
+    if (post) {
+      setEditingPost(post);
+      setNewPost({ title: post.title, content: post.content });
+    } else {
+      setEditingPost(null);
+      setNewPost({ title: '', content: '' });
+    }
     setIsModalOpen(true);
   };
 
@@ -121,14 +143,30 @@ const Blog: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    const newPostWithDate = {
-      ...newPost,
-      id: posts.length + 1,
-      date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-    };
-    const updatedPosts = [...posts, newPostWithDate];
-    setPosts(updatedPosts);
-    localStorage.setItem('posts', JSON.stringify(updatedPosts));
+    if (editingPost) {
+      // Edit existing post
+      const updatedPosts = posts.map((post) =>
+        post.id === editingPost.id
+          ? {
+              ...post,
+              title: newPost.title,
+              content: newPost.content,
+              date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            }
+          : post
+      );
+      setPosts(updatedPosts);
+    } else {
+      // Add new post
+      const newPostWithDate = {
+        ...newPost,
+        id: posts.length + 1,
+        date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      };
+      const updatedPosts = [...posts, newPostWithDate];
+      setPosts(updatedPosts);
+    }
+    localStorage.setItem('posts', JSON.stringify(posts));
     setNewPost({ title: '', content: '' });
     setIsModalOpen(false);
   };
@@ -143,7 +181,7 @@ const Blog: React.FC = () => {
     <BoardContainer>
       <h2 style={{ fontSize: '20px', fontWeight: 'bold' }}>게시판</h2>
       <ButtonContainer>
-        <WriteButton onClick={openModal}>글 작성</WriteButton>
+        <WriteButton onClick={() => openModal()}>글 작성</WriteButton>
       </ButtonContainer>
       <PostList>
         {posts.map((post) => (
@@ -154,6 +192,7 @@ const Blog: React.FC = () => {
               <p>작성일: {post.date}</p>
             </div>
             <div>
+              <EditButton onClick={() => openModal(post)}>수정</EditButton>
               <Popconfirm
                 title="정말로 삭제하시겠습니까?"
                 onConfirm={() => handleDelete(post.id)}
@@ -167,7 +206,7 @@ const Blog: React.FC = () => {
         ))}
       </PostList>
       <Modal
-        title="새 글 작성"
+        title={editingPost ? '글 수정' : '새 글 작성'}
         open={isModalOpen}
         onOk={handleSubmit}
         onCancel={closeModal}
