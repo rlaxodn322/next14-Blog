@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import Link from 'next/link';
 // 스타일링된 카드 컨테이너
 const CardContainer = styled.div`
   width: 100%;
@@ -79,6 +79,7 @@ const BlogCard = () => (
           <p>Additional description or details can go here.</p>
         </ImageDescription>
       </CardItem>
+
       <CardItem>
         <StyledImage
           src="/icons/icon-sun.svg" // 실제 이미지 경로로 변경

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 const divparents: React.CSSProperties = {
   margin: '0 auto',
   alignItems: 'center',
@@ -16,7 +17,9 @@ const App: React.FC = () => (
     <div style={{ width: '100%', backgroundColor: 'white' }}>
       <div style={divparents}>
         <div style={{ width: '10%' }}>
-          <img src="/icons/man.svg" style={{ width: '40%' }}></img>
+          <Link href="../">
+            <img src="/icons/man.svg" style={{ width: '40%' }}></img>
+          </Link>
         </div>
         <div style={{ width: '80%', display: 'flex' }}>
           <div style={divstyle}>Pricing</div>
