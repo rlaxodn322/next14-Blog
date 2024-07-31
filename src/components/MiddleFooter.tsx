@@ -11,20 +11,20 @@ const MainBox = styled.div`
 const SubBox = styled.div`
   margin: 10px;
   height: 90%;
-  width: 20%;
+  width: 20%; 
   //border: 1px solid lightgray;
 `;
 const TitleBox = styled.div`
   margin-bottom: 20px;
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
-  &:hover {
+  &:hover {      
     transform: scale(1.3);
   }
 `;
 const ImgBox = styled.div`
   display: flex;
-`;
+`;   
 const Img2 = styled.img`
   width: 15%;
   margin-right: 10px;
