@@ -22,6 +22,7 @@ const CardTitle = styled.h2`
 const Grid = styled.div`
   display: flex;
   gap: 16px;
+  margin-bottom: 5px;
 `;
 
 // 스타일링된 카드 아이템
@@ -36,6 +37,10 @@ const CardItem = styled.div`
   align-items: center;
   padding: 16px;
   box-sizing: border-box;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 // 스타일링된 이미지
