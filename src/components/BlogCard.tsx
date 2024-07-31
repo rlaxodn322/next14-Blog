@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
@@ -69,37 +70,42 @@ const BlogCard = () => (
   <CardContainer>
     <CardTitle>Card Title</CardTitle>
     <Grid>
-      <CardItem>
-        <StyledImage
-          src="/icons/icon-sun.svg" // 실제 이미지 경로로 변경
-          alt="Description"
-        />
-        <ImageDescription>
-          <h3>Small Title</h3>
-          <p>Additional description or details can go here.</p>
-        </ImageDescription>
-      </CardItem>
-
-      <CardItem>
-        <StyledImage
-          src="/icons/icon-sun.svg" // 실제 이미지 경로로 변경
-          alt="Description"
-        />
-        <ImageDescription>
-          <h3>Small Title</h3>
-          <p>Additional description or details can go here.</p>
-        </ImageDescription>
-      </CardItem>
-      <CardItem>
-        <StyledImage
-          src="/icons/icon-moon.svg" // 실제 이미지 경로로 변경
-          alt="Description"
-        />
-        <ImageDescription>
-          <h3>Small Title</h3>
-          <p>Additional description or details can go here.</p>
-        </ImageDescription>
-      </CardItem>
+      <Link href="/about/01">
+        <CardItem>
+          <StyledImage
+            src="/icons/icon-sun.svg" // 실제 이미지 경로로 변경
+            alt="Description"
+          />
+          <ImageDescription>
+            <h3>Small Title</h3>
+            <p>Additional description or details can go here.</p>
+          </ImageDescription>
+        </CardItem>
+      </Link>
+      <Link href="/blog/01">
+        <CardItem>
+          <StyledImage
+            src="/icons/icon-sun.svg" // 실제 이미지 경로로 변경
+            alt="Description"
+          />
+          <ImageDescription>
+            <h3>Small Title</h3>
+            <p>Additional description or details can go here.</p>
+          </ImageDescription>
+        </CardItem>
+      </Link>
+      <Link href="/post/01">
+        <CardItem>
+          <StyledImage
+            src="/icons/icon-moon.svg" // 실제 이미지 경로로 변경
+            alt="Description"
+          />
+          <ImageDescription>
+            <h3>Small Title</h3>
+            <p>Additional description or details can go here.</p>
+          </ImageDescription>
+        </CardItem>
+      </Link>
     </Grid>
     <Grid>
       <CardItem>

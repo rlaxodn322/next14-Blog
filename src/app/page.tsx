@@ -1,9 +1,9 @@
 'use client';
 import Image from 'next/image';
-import TitleBox from './components/TitleBox';
-import ImgBox from './components/ImgBox';
-import BlogCard from './components/BlogCard';
-import MiddleFooter from './components/MiddleFooter';
+import TitleBox from '../components/TitleBox';
+import ImgBox from '../components/ImgBox';
+import BlogCard from '../components/BlogCard';
+import MiddleFooter from '../components/MiddleFooter';
 
 export default function Home() {
   return (
