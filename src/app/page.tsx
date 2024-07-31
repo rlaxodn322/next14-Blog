@@ -4,7 +4,6 @@ import TitleBox from '../components/TitleBox';
 import ImgBox from '../components/ImgBox';
 import BlogCard from '../components/BlogCard';
 import MiddleFooter from '../components/MiddleFooter';
-import Grid from './layout/header';
 export default function Home() {
   return (
     //<main className="flex min-h-screen flex-col items-center justify-between p-24"></main>

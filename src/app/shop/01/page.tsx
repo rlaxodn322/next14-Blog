@@ -250,10 +250,10 @@ const ProductPage: React.FC = () => {
         {products.map((product) => (
           <ProductItem key={product.id}>
             <img src={product.image} alt={product.name} />
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
+            <p>이름: {product.name}</p>
+            <p>내용: {product.description}</p>
             <p>가격: {product.price}</p>
-            <p>업로드 시간: {product.uploadTime}</p>
+            <p>{product.uploadTime}</p>
             <div className="actions">
               <EditButton
                 icon={<EditOutlined />}
