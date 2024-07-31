@@ -4,10 +4,14 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Modal, Input, Button, Popconfirm } from 'antd';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-
+import {
+  UploadOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 // 게시판 전체 컨테이너
 const BoardContainer = styled.div`
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   margin-top: 100px;
@@ -85,7 +89,7 @@ const DeleteButton = styled(Button)`
 
 // 수정 버튼 스타일
 const EditButton = styled(Button)`
-  background-color: #4d79ff;
+  background-color: #ffc107;
   color: white;
   border: none;
   margin-left: 10px;
@@ -179,7 +183,7 @@ const Blog: React.FC = () => {
 
   return (
     <BoardContainer>
-      <h2 style={{ fontSize: '20px', fontWeight: 'bold' }}>게시판</h2>
+      <h2 style={{ fontSize: '24px', fontWeight: 'bold' }}>게시판</h2>
       <ButtonContainer>
         <WriteButton onClick={() => openModal()}>글 작성</WriteButton>
       </ButtonContainer>
@@ -192,14 +196,19 @@ const Blog: React.FC = () => {
               <p>작성일: {post.date}</p>
             </div>
             <div>
-              <EditButton onClick={() => openModal(post)}>수정</EditButton>
+              <EditButton
+                icon={<EditOutlined />}
+                onClick={() => openModal(post)}
+              >
+                수정
+              </EditButton>
               <Popconfirm
                 title="정말로 삭제하시겠습니까?"
                 onConfirm={() => handleDelete(post.id)}
                 okText="Yes"
                 cancelText="No"
               >
-                <DeleteButton>삭제</DeleteButton>
+                <DeleteButton icon={<DeleteOutlined />}>삭제</DeleteButton>
               </Popconfirm>
             </div>
           </PostItem>

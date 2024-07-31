@@ -27,8 +27,9 @@ const App: React.FC = () => (
           <Link href="/blog/01">
             <div style={divstyle}>게시판</div>
           </Link>
-
-          <div style={divstyle}>Solutions</div>
+          <Link href="/post/01">
+            <div style={divstyle}>쇼핑몰</div>
+          </Link>
           <div style={divstyle}>Commnuity</div>
           <div style={divstyle}>Resources</div>
           <div style={divstyle}>Pricing</div>
