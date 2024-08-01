@@ -9,6 +9,8 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import type { RcFile } from 'antd/es/upload/interface';
 
 // 전체 컨테이너
@@ -120,6 +122,70 @@ interface Product {
   image: string;
   uploadTime: string; // 업로드 시간 추가
 }
+
+// DraggableItem 컴포넌트
+const ItemTypes = {
+  PRODUCT: 'product',
+};
+
+interface DraggableItemProps {
+  product: Product;
+  index: number;
+  moveProduct: (fromIndex: number, toIndex: number) => void;
+  onEdit: (product: Product) => void;
+  onDelete: (id: number) => void;
+}
+
+const DraggableItem: React.FC<DraggableItemProps> = ({
+  product,
+  index,
+  moveProduct,
+  onEdit,
+  onDelete,
+}) => {
+  const [, ref] = useDrag({
+    type: ItemTypes.PRODUCT,
+    item: { index },
+  });
+
+  const [, drop] = useDrop({
+    accept: ItemTypes.PRODUCT,
+    hover: (item: { index: number }) => {
+      if (item.index !== index) {
+        moveProduct(item.index, index);
+        item.index = index;
+      }
+    },
+  });
+
+  const combinedRef = (node: HTMLDivElement | null) => {
+    ref(node);
+    drop(node);
+  };
+
+  return (
+    <div ref={combinedRef}>
+      <ProductItem>
+        <img src={product.image} alt={product.name} />
+        <p>이름: {product.name}</p>
+        <p>내용: {product.description}</p>
+        <p>가격: {product.price}</p>
+        <p>{product.uploadTime}</p>
+        <div className="actions">
+          <EditButton icon={<EditOutlined />} onClick={() => onEdit(product)}>
+            수정
+          </EditButton>
+          <DeleteButton
+            icon={<DeleteOutlined />}
+            onClick={() => onDelete(product.id)}
+          >
+            삭제
+          </DeleteButton>
+        </div>
+      </ProductItem>
+    </div>
+  );
+};
 
 const ProductPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -238,130 +304,127 @@ const ProductPage: React.FC = () => {
     localStorage.setItem('products', JSON.stringify(updatedProducts));
   };
 
+  const moveProduct = (fromIndex: number, toIndex: number) => {
+    const updatedProducts = [...products];
+    const [movedProduct] = updatedProducts.splice(fromIndex, 1);
+    updatedProducts.splice(toIndex, 0, movedProduct);
+    setProducts(updatedProducts);
+    localStorage.setItem('products', JSON.stringify(updatedProducts));
+  };
+
   return (
-    <ProductContainer>
-      <h2 style={{ fontSize: '24px', fontWeight: 'bold' }}>
-        상품 등록 및 목록
-      </h2>
-      <ButtonContainer>
-        <RegisterButton onClick={openModal}>상품 등록</RegisterButton>
-      </ButtonContainer>
-      <ProductList>
-        {products.map((product) => (
-          <ProductItem key={product.id}>
-            <img src={product.image} alt={product.name} />
-            <p>이름: {product.name}</p>
-            <p>내용: {product.description}</p>
-            <p>가격: {product.price}</p>
-            <p>{product.uploadTime}</p>
-            <div className="actions">
-              <EditButton
-                icon={<EditOutlined />}
-                onClick={() => openEditModal(product)}
-              >
-                수정
-              </EditButton>
-              <DeleteButton
-                icon={<DeleteOutlined />}
-                onClick={() => handleDelete(product.id)}
-              >
-                삭제
-              </DeleteButton>
-            </div>
-          </ProductItem>
-        ))}
-      </ProductList>
-      <Modal
-        title="상품 등록"
-        open={isModalOpen}
-        onOk={handleSubmit}
-        onCancel={closeModal}
-      >
-        <Input
-          name="name"
-          placeholder="상품 이름"
-          value={newProduct.name}
-          onChange={handleInputChange}
-          style={{ marginBottom: '10px' }}
-        />
-        <Input
-          name="description"
-          placeholder="상품 설명"
-          value={newProduct.description}
-          onChange={handleInputChange}
-          style={{ marginBottom: '10px' }}
-        />
-        <Input
-          name="price"
-          placeholder="가격"
-          value={newProduct.price}
-          onChange={handleInputChange}
-          style={{ marginBottom: '10px' }}
-        />
-        <Upload
-          name="image"
-          showUploadList={false}
-          beforeUpload={(file) => {
-            handleImageChange(file as RcFile);
-            return false; // 업로드를 방지하고 이미지만 처리하도록 설정
-          }}
+    <DndProvider backend={HTML5Backend}>
+      <ProductContainer>
+        <h2 style={{ fontSize: '24px', fontWeight: 'bold' }}>
+          상품 등록 및 목록
+        </h2>
+        <ButtonContainer>
+          <RegisterButton onClick={openModal}>상품 등록</RegisterButton>
+        </ButtonContainer>
+        <ProductList>
+          {products.map((product, index) => (
+            <DraggableItem
+              key={product.id}
+              product={product}
+              index={index}
+              moveProduct={moveProduct}
+              onEdit={openEditModal}
+              onDelete={handleDelete}
+            />
+          ))}
+        </ProductList>
+        <Modal
+          title="상품 등록"
+          open={isModalOpen}
+          onOk={handleSubmit}
+          onCancel={closeModal}
         >
-          <Button icon={<UploadOutlined />}>이미지 업로드</Button>
-        </Upload>
-        {newProduct.image && (
-          <img
-            src={newProduct.image}
-            alt="상품 미리보기"
-            style={{ width: '100%', marginTop: '10px' }}
+          <Input
+            name="name"
+            placeholder="상품 이름"
+            value={newProduct.name}
+            onChange={handleInputChange}
+            style={{ marginBottom: '10px' }}
           />
-        )}
-      </Modal>
-      <Modal
-        title="상품 수정"
-        open={isEditModalOpen}
-        onOk={handleEdit}
-        onCancel={closeEditModal}
-      >
-        <Input
-          name="name"
-          placeholder="상품 이름"
-          value={newProduct.name}
-          onChange={handleInputChange}
-          style={{ marginBottom: '10px' }}
-        />
-        <Input
-          name="description"
-          placeholder="상품 설명"
-          value={newProduct.description}
-          onChange={handleInputChange}
-          style={{ marginBottom: '10px' }}
-        />
-        <Input
-          name="price"
-          placeholder="가격"
-          value={newProduct.price}
-          onChange={handleInputChange}
-          style={{ marginBottom: '10px' }}
-        />
-        <Upload
-          name="image"
-          showUploadList={false}
-          beforeUpload={(file) => {
-            handleImageChange(file as RcFile);
-            return false; // 업로드를 방지하고 이미지만 처리하도록 설정
-          }}
+          <Input
+            name="description"
+            placeholder="상품 설명"
+            value={newProduct.description}
+            onChange={handleInputChange}
+            style={{ marginBottom: '10px' }}
+          />
+          <Input
+            name="price"
+            placeholder="가격"
+            value={newProduct.price}
+            onChange={handleInputChange}
+            style={{ marginBottom: '10px' }}
+          />
+          <Upload
+            name="image"
+            showUploadList={false}
+            beforeUpload={(file) => {
+              handleImageChange(file as RcFile);
+              return false; // 업로드를 방지하고 이미지만 처리하도록 설정
+            }}
+          >
+            <Button icon={<UploadOutlined />}>이미지 업로드</Button>
+          </Upload>
+          {newProduct.image && (
+            <img
+              src={newProduct.image}
+              alt="상품 미리보기"
+              style={{ width: '100%', marginTop: '10px' }}
+            />
+          )}
+        </Modal>
+        <Modal
+          title="상품 수정"
+          open={isEditModalOpen}
+          onOk={handleEdit}
+          onCancel={closeEditModal}
         >
-          <Button icon={<UploadOutlined />}>이미지 업로드</Button>
-        </Upload>
-        {newProduct.image && (
-          <img
-            src={newProduct.image}
-            alt="상품 미리보기"
-            style={{ width: '100%', marginTop: '10px' }}
+          <Input
+            name="name"
+            placeholder="상품 이름"
+            value={newProduct.name}
+            onChange={handleInputChange}
+            style={{ marginBottom: '10px' }}
           />
-        )}
-      </Modal>
-    </ProductContainer>
+          <Input
+            name="description"
+            placeholder="상품 설명"
+            value={newProduct.description}
+            onChange={handleInputChange}
+            style={{ marginBottom: '10px' }}
+          />
+          <Input
+            name="price"
+            placeholder="가격"
+            value={newProduct.price}
+            onChange={handleInputChange}
+            style={{ marginBottom: '10px' }}
+          />
+          <Upload
+            name="image"
+            showUploadList={false}
+            beforeUpload={(file) => {
+              handleImageChange(file as RcFile);
+              return false; // 업로드를 방지하고 이미지만 처리하도록 설정
+            }}
+          >
+            <Button icon={<UploadOutlined />}>이미지 업로드</Button>
+          </Upload>
+          {newProduct.image && (
+            <img
+              src={newProduct.image}
+              alt="상품 미리보기"
+              style={{ width: '100%', marginTop: '10px' }}
+            />
+          )}
+        </Modal>
+      </ProductContainer>
+    </DndProvider>
   );
 };
 
