@@ -42,12 +42,17 @@ const ProductItem = styled.div`
   border: 1px solid #ddd;
   padding: 10px;
   width: 200px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  &:hover {
+    background-color: #f3eded;
+  }
   img {
     width: 100%;
     height: auto;
@@ -166,7 +171,11 @@ const DraggableItem: React.FC<DraggableItemProps> = ({
   return (
     <div ref={combinedRef}>
       <ProductItem>
-        <img src={product.image} alt={product.name} />
+        <img
+          style={{ width: '200px', height: '100px' }}
+          src={product.image}
+          alt={product.name}
+        />
         <p>이름: {product.name}</p>
         <p>내용: {product.description}</p>
         <p>가격: {product.price}</p>
