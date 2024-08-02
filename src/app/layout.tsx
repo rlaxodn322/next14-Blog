@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Grid from '../app/layout/header';
@@ -23,7 +24,9 @@ export default function RootLayout({
             <Grid />
           </h1>
         </header>
-        <main>{children}</main>
+
+          <main>{children}</main>{' '}
+   
         <footer>
           <Footer />
         </footer>

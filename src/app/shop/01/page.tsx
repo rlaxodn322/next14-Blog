@@ -12,7 +12,7 @@ import {
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import type { RcFile } from 'antd/es/upload/interface';
-
+import Confetti from 'react-confetti';
 // 전체 컨테이너
 const ProductContainer = styled.div`
   max-width: 1000px;
@@ -200,6 +200,7 @@ const ProductPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
   const [newProduct, setNewProduct] = useState({
     name: '',
     description: '',
@@ -275,7 +276,8 @@ const ProductPage: React.FC = () => {
       id: products.length + 1,
       uploadTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), // 업로드 시간 추가
     };
-
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 3000);
     const updatedProducts = [...products, newProductWithId];
     setProducts(updatedProducts);
     localStorage.setItem('products', JSON.stringify(updatedProducts));
@@ -433,6 +435,15 @@ const ProductPage: React.FC = () => {
           )}
         </Modal>
       </ProductContainer>
+      {showConfetti && (
+        <Confetti
+          numberOfPieces={1000}
+          width={window.innerWidth}
+          height={window.innerHeight}
+          gravity={0.2}
+          wind={0}
+        />
+      )}
     </DndProvider>
   );
 };

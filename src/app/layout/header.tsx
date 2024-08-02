@@ -30,8 +30,8 @@ const App: React.FC = () => (
           <Link href="/shop/01">
             <div style={divstyle}>쇼핑몰</div>
           </Link>
-          <Link href="/about/01">
-            <div style={divstyle}>Commnuity</div>{' '}
+          <Link href="/chat/01">
+            <div style={divstyle}>채팅방</div>{' '}
           </Link>
           <div style={divstyle}>Resources</div>
           <div style={divstyle}>Pricing</div>
