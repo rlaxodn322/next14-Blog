@@ -33,7 +33,9 @@ const App: React.FC = () => (
           <Link href="/chat/01">
             <div style={divstyle}>채팅방</div>{' '}
           </Link>
-          <div style={divstyle}>Resources</div>
+          <Link href="/groupchat/01">
+            <div style={divstyle}>Resources</div>
+          </Link>
           <div style={divstyle}>Pricing</div>
           <div style={divstyle}>Contact</div>
         </div>

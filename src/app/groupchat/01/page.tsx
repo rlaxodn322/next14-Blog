@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Chat from '../../../components/Chat';
+import Chat from '../../../components/Chat1';
 const Chatting: React.FC = () => {
   return (
     <div
