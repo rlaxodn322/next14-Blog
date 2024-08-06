@@ -4,10 +4,10 @@ import { backUrl } from '../config/config';
 axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true;
 
-export async function fetchmessage() {
+export async function fetchmessage(): Promise<string[]> {
   try {
     const response = await axios.get('/messages');
-    return response.data;
+    return response.data.map((msg: { content: string }) => msg.content);
   } catch (error) {
     console.error('api 호출 에러', error);
     throw error;

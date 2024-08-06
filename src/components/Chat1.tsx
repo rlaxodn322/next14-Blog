@@ -7,16 +7,13 @@ const Chat: React.FC = () => {
   const chatBoxRef = useRef<HTMLDivElement>(null); // 채팅 박스를 참조하는 ref
 
   useEffect(() => {
-    // 브라우저의 로컬 저장소에서 이전 채팅 기록을 가져옴
-    const storedChat = localStorage.getItem('chat1');
-    if (storedChat) {
-      setChat1(JSON.parse(storedChat));
-    }
     // 컴포넌트가 마운트될 때 서버에서 데이터를 가져옴
     const fetchData = async () => {
       try {
         const data = await fetchmessage();
+
         console.log('서버에서 가져온 데이터:', data);
+        setChat1(data);
         // 필요한 경우 서버에서 가져온 데이터를 처리
       } catch (error) {
         console.error('데이터 가져오기 에러:', error);
@@ -38,7 +35,7 @@ const Chat: React.FC = () => {
       try {
         const response = await sendmessage(message);
         console.log('서버 응답', response);
-        const newChat = [...chat1, message];
+        const newChat = [...chat1, response.content];
         setChat1(newChat);
         localStorage.setItem('chat1', JSON.stringify(newChat)); // 로컬 저장소에 저장
         setMessage('');
