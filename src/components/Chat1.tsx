@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-
+import { fetchmessage, sendmessage } from '../apis/test';
 const Chat: React.FC = () => {
   const [message, setMessage] = useState('');
   const [chat1, setChat1] = useState<string[]>([]);
@@ -12,6 +12,18 @@ const Chat: React.FC = () => {
     if (storedChat) {
       setChat1(JSON.parse(storedChat));
     }
+    // 컴포넌트가 마운트될 때 서버에서 데이터를 가져옴
+    const fetchData = async () => {
+      try {
+        const data = await fetchmessage();
+        console.log('서버에서 가져온 데이터:', data);
+        // 필요한 경우 서버에서 가져온 데이터를 처리
+      } catch (error) {
+        console.error('데이터 가져오기 에러:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -21,12 +33,18 @@ const Chat: React.FC = () => {
     }
   }, [chat1]);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (message.trim()) {
-      const newChat = [...chat1, message];
-      setChat1(newChat);
-      localStorage.setItem('chat', JSON.stringify(newChat)); // 로컬 저장소에 저장
-      setMessage('');
+      try {
+        const response = await sendmessage(message);
+        console.log('서버 응답', response);
+        const newChat = [...chat1, message];
+        setChat1(newChat);
+        localStorage.setItem('chat1', JSON.stringify(newChat)); // 로컬 저장소에 저장
+        setMessage('');
+      } catch (error) {
+        console.error('메시지 전송 에러', error);
+      }
     }
   };
 
