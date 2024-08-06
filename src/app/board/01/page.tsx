@@ -9,17 +9,32 @@ import WriteButton from '../../../components/WriteButton';
 import PostModal from '../../../components/PostModal';
 import { Post } from '../../../types/Post';
 import Confetti from 'react-confetti';
+import {
+  fetchPosts,
+  createPost,
+  updatePost,
+  deletePost,
+  likePost,
+} from '../../../apis/board';
 
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [newPost, setNewPost] = useState({ title: '', content: '' });
-  const [showConfetti, setShowConfetti] = useState(false); // 컨페티 상태 추가
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    const storedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
-    setPosts(storedPosts);
+    const loadPosts = async () => {
+      try {
+        const fetchedPosts = await fetchPosts();
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error('Failed to load posts:', error);
+      }
+    };
+
+    loadPosts();
   }, []);
 
   const openModal = (post?: Post) => {
@@ -47,56 +62,58 @@ const Blog: React.FC = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    if (editingPost) {
-      const updatedPosts = posts.map((post) =>
-        post.id === editingPost.id
-          ? {
-              ...post,
-              title: newPost.title,
-              content: newPost.content,
-              date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-            }
-          : post
-      );
-      setPosts(updatedPosts);
-    } else {
-      const newPostWithDate = {
-        ...newPost,
-        id: posts.length + 1,
-        date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-        likes: 0, // 좋아요 수 초기화
-        comments: [], // 댓글 초기화
-      };
-      const updatedPosts = [...posts, newPostWithDate];
-      setPosts(updatedPosts);
+  const handleSubmit = async () => {
+    try {
+      if (editingPost) {
+        const updatedPost = {
+          ...editingPost,
+          title: newPost.title,
+          content: newPost.content,
+          date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        };
+        await updatePost(updatedPost);
+        const updatedPosts = posts.map((post) =>
+          post.id === editingPost.id ? updatedPost : post
+        );
+        setPosts(updatedPosts);
+      } else {
+        const newPostWithDate = {
+          ...newPost,
+          id: posts.length + 1, // 서버에서 ID를 생성하므로 클라이언트에서는 일시적인 ID 사용
+          date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+          likes: 0,
+          comments: [],
+        };
+        const createdPost = await createPost(newPostWithDate);
+        setPosts((prevPosts) => [...prevPosts, createdPost]);
+      }
+      setNewPost({ title: '', content: '' });
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Failed to save post:', error);
     }
-    localStorage.setItem('posts', JSON.stringify(posts));
-    setNewPost({ title: '', content: '' });
-    setIsModalOpen(false);
   };
 
-  const handleDelete = (id: number) => {
-    const updatedPosts = posts.filter((post) => post.id !== id);
-    setPosts(updatedPosts);
-    localStorage.setItem('posts', JSON.stringify(updatedPosts));
+  const handleDelete = async (id: number) => {
+    try {
+      await deletePost(id);
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+    } catch (error) {
+      console.error('Failed to delete post:', error);
+    }
   };
 
-  const handleLike = (id: number) => {
-    const updatedPosts = posts.map((post) =>
-      post.id === id
-        ? {
-            ...post,
-            likes: post.likes + 1, // 좋아요 수 증가
-          }
-        : post
-    );
-    setPosts(updatedPosts);
-    localStorage.setItem('posts', JSON.stringify(updatedPosts));
-
-    // 컨페티 효과 표시
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 3000); // 3초 후 컨페티 효과 숨기기
+  const handleLike = async (id: number) => {
+    try {
+      const updatedPost = await likePost(id);
+      setPosts((prevPosts) =>
+        prevPosts.map((post) => (post.id === id ? updatedPost : post))
+      );
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 3000);
+    } catch (error) {
+      console.error('Failed to like post:', error);
+    }
   };
 
   return (
@@ -112,7 +129,7 @@ const Blog: React.FC = () => {
             post={post}
             onEdit={() => openModal(post)}
             onDelete={() => handleDelete(post.id)}
-            onLike={() => handleLike(post.id)} // 좋아요 핸들러 추가
+            onLike={() => handleLike(post.id)}
           />
         ))}
       </PostList>
@@ -132,8 +149,7 @@ const Blog: React.FC = () => {
           gravity={0.2}
           wind={0}
         />
-      )}{' '}
-      {/* 컨페티 효과 표시 */}
+      )}
     </BoardContainer>
   );
 };
