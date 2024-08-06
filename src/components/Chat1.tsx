@@ -1,20 +1,22 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { fetchmessage, sendmessage } from '../apis/test';
+import { deletemessage, fetchmessage, sendmessage } from '../apis/test';
+import { Message } from '../types/Post';
+
 const Chat: React.FC = () => {
   const [message, setMessage] = useState('');
-  const [chat1, setChat1] = useState<string[]>([]);
+  //const [chat1, setChat1] = useState<string[]>([]);
+  const [chat1, setChat1] = useState<Message[]>([]);
   const chatBoxRef = useRef<HTMLDivElement>(null); // 채팅 박스를 참조하는 ref
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 서버에서 데이터를 가져옴
     const fetchData = async () => {
       try {
-        const data = await fetchmessage();
-
+        // 서버에서 데이터를 가져올 때 Message 배열을 반환한다고 가정
+        const data: Message[] = await fetchmessage();
         console.log('서버에서 가져온 데이터:', data);
         setChat1(data);
-        // 필요한 경우 서버에서 가져온 데이터를 처리
       } catch (error) {
         console.error('데이터 가져오기 에러:', error);
       }
@@ -33,15 +35,22 @@ const Chat: React.FC = () => {
   const sendMessage = async () => {
     if (message.trim()) {
       try {
-        const response = await sendmessage(message);
-        console.log('서버 응답', response);
-        const newChat = [...chat1, response.content];
-        setChat1(newChat);
-        localStorage.setItem('chat1', JSON.stringify(newChat)); // 로컬 저장소에 저장
+        // 메시지를 전송하고 서버에서 새로운 메시지 객체를 반환한다고 가정
+        const response: Message = await sendmessage(message);
+        console.log('서버 응답:', response);
+        setChat1((prevChat) => [...prevChat, response]);
         setMessage('');
       } catch (error) {
-        console.error('메시지 전송 에러', error);
+        console.error('메시지 전송 에러:', error);
       }
+    }
+  };
+  const handleDelete = async (id: number) => {
+    try {
+      await deletemessage(id);
+      setChat1((prevChat) => prevChat.filter((msg) => msg.id !== id));
+    } catch (error) {
+      console.error('삭제 에러:', error);
     }
   };
 
@@ -54,9 +63,15 @@ const Chat: React.FC = () => {
   return (
     <div style={styles.container}>
       <div style={styles.chatBox} ref={chatBoxRef}>
-        {chat1.map((msg, index) => (
-          <div key={index} style={styles.message}>
-            {msg}
+        {chat1.map((msg) => (
+          <div key={msg.id} style={styles.message}>
+            {msg.content}
+            <button
+              onClick={() => handleDelete(msg.id)}
+              style={styles.deleteButton}
+            >
+              삭제
+            </button>
           </div>
         ))}
       </div>
@@ -103,10 +118,22 @@ const styles = {
     boxShadow: 'inset 0px 0px 10px rgba(0, 0, 0, 0.1)',
   },
   message: {
+    position: 'relative' as 'relative', // 상대 위치 설정
     margin: '5px 0',
     padding: '10px',
     borderRadius: '8px',
     backgroundColor: '#e0e0e0',
+  },
+  deleteButton: {
+    position: 'absolute' as 'absolute', // 절대 위치 설정
+    right: '10px',
+    top: '10px',
+    padding: '5px',
+    border: 'none',
+    borderRadius: '5px',
+    backgroundColor: '#ff4d4d',
+    color: '#fff',
+    cursor: 'pointer',
   },
   inputContainer: {
     display: 'flex',
@@ -129,5 +156,4 @@ const styles = {
     cursor: 'pointer',
   },
 };
-
 export default Chat;

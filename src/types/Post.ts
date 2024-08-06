@@ -13,3 +13,7 @@ export interface Comment {
   content: string;
   date: string;
 }
+export interface Message {
+  id: number;
+  content: string;
+}
