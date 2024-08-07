@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { deletemessage, fetchmessage, sendmessage } from '../apis/test';
+import { deletemessage, fetchmessage, sendmessage } from '../apis/groupChat';
 import { Message } from '../types/Post';
 
 const Chat: React.FC = () => {

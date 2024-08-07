@@ -8,9 +8,9 @@ const footerstyle: React.CSSProperties = {
 const Footer: React.FC = () => {
   return (
     <>
-      <div style={footerstyle}>
+      {/* <div style={footerstyle}>
         <div>taewoo</div>
-      </div>
+      </div> */}
     </>
   );
 };

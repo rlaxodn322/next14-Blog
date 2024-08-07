@@ -8,6 +8,14 @@ export interface Post {
   content: string;
   comments: { id: number; author: string; content: string; date: string }[];
 }
+export interface Post1 {
+  id: number;
+  date: string;
+  //comments: Comment[]; // 댓글 배열
+  title: string;
+  content: string;
+  comments: { id: number; author: string; content: string; date: string }[];
+}
 
 export interface Comment {
   id: number;

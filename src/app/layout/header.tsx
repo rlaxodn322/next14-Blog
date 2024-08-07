@@ -22,7 +22,6 @@ const App: React.FC = () => (
           <Link href="../">
             <img src="/icons/man.svg" style={{ width: '40%' }}></img>
           </Link>
-          
         </div>
         <div style={{ width: '80%', display: 'flex' }}>
           <Link href="/board/01">
@@ -37,7 +36,10 @@ const App: React.FC = () => (
           <Link href="/groupchat/01">
             <div style={divstyle}>그룹챗</div>
           </Link>
-          <div style={divstyle}>Pricing</div>
+          <Link href="/community/01">
+            <div style={divstyle}>커뮤니티</div>
+          </Link>
+
           <div style={divstyle}>Contact</div>
         </div>
       </div>
