@@ -141,8 +141,10 @@ const styles = {
   container: {
     maxWidth: '600px',
     margin: '0 auto',
+    height: '600px',
     padding: '20px',
     fontFamily: 'Arial, sans-serif',
+    border: '1px solid lightgray',
   },
   header: {
     fontSize: '18px',
