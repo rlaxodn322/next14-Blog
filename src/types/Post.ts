@@ -1,4 +1,5 @@
 export interface Post {
+  createdAt: any;
   id: number;
   date: string;
   likes: number; // 좋아요 수

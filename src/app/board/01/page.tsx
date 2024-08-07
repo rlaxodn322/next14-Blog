@@ -81,6 +81,7 @@ const Blog: React.FC = () => {
           ...newPost,
           id: posts.length + 1, // 서버에서 ID를 생성하므로 클라이언트에서는 일시적인 ID 사용
           date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+          createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
           likes: 0,
           comments: [],
         };
