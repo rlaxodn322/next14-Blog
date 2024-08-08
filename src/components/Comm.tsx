@@ -20,6 +20,7 @@ const Comm: React.FC = () => {
 
     loadPosts();
   }, []);
+  
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

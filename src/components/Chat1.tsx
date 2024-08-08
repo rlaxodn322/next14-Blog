@@ -2,11 +2,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { deletemessage, fetchmessage, sendmessage } from '../apis/groupChat';
 import { Message } from '../types/Post';
+import { useRecoilState } from 'recoil';
+import { chatState } from '../recoil/atoms/state';
 
 const Chat: React.FC = () => {
   const [message, setMessage] = useState('');
   //const [chat1, setChat1] = useState<string[]>([]);
-  const [chat1, setChat1] = useState<Message[]>([]);
+  const [chat1, setChat1] = useRecoilState(chatState); // Recoil 상태 사용
   const chatBoxRef = useRef<HTMLDivElement>(null); // 채팅 박스를 참조하는 ref
 
   useEffect(() => {
@@ -63,8 +65,8 @@ const Chat: React.FC = () => {
   return (
     <div style={styles.container}>
       <div style={styles.chatBox} ref={chatBoxRef}>
-        {chat1.map((msg) => (
-          <div key={msg.id} style={styles.message}>
+        {chat1.map((msg, index) => (
+          <div key={index} style={styles.message}>
             {msg.content}
             <button
               onClick={() => handleDelete(msg.id)}

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-
+import ClientSideWrapper from './ClientSideWrapper';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Grid from '../app/layout/header';
@@ -27,7 +27,11 @@ export default function RootLayout({
             <Grid />
           </h1>
         </header>
-        <main>{children}</main>{' '}
+        <ClientSideWrapper>
+          {' '}
+          <main>{children}</main>{' '}
+        </ClientSideWrapper>
+
         <footer>
           <Footer />
         </footer>
