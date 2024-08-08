@@ -7,7 +7,6 @@ import { chatState } from '../recoil/atoms/state';
 
 const Chat: React.FC = () => {
   const [message, setMessage] = useState('');
-  //const [chat1, setChat1] = useState<string[]>([]);
   const [chat1, setChat1] = useRecoilState(chatState); // Recoil 상태 사용
   const chatBoxRef = useRef<HTMLDivElement>(null); // 채팅 박스를 참조하는 ref
 
@@ -48,11 +47,13 @@ const Chat: React.FC = () => {
     }
   };
   const handleDelete = async (id: number) => {
-    try {
-      await deletemessage(id);
-      setChat1((prevChat) => prevChat.filter((msg) => msg.id !== id));
-    } catch (error) {
-      console.error('삭제 에러:', error);
+    if (window.confirm('정말 이 채팅을 삭제하시겠습니까?')) {
+      try {
+        await deletemessage(id);
+        setChat1((prevChat) => prevChat.filter((msg) => msg.id !== id));
+      } catch (error) {
+        console.error('삭제 에러:', error);
+      }
     }
   };
 
@@ -65,9 +66,9 @@ const Chat: React.FC = () => {
   return (
     <div style={styles.container}>
       <div style={styles.chatBox} ref={chatBoxRef}>
-        {chat1.map((msg, index) => (
-          <div key={index} style={styles.message}>
-            {msg.content}
+        {chat1.map((msg) => (
+          <div key={msg.id} style={styles.message}>
+            {msg.content} {/* 메시지의 내용을 표시 */}
             <button
               onClick={() => handleDelete(msg.id)}
               style={styles.deleteButton}
@@ -158,4 +159,5 @@ const styles = {
     cursor: 'pointer',
   },
 };
+
 export default Chat;

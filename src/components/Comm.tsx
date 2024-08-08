@@ -2,12 +2,15 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { fetchPosts, createPost, deletePost } from '../apis/commapi';
 import { Post1 } from '@/types/Post';
+import Pagination from './Pagination'; // Pagination 컴포넌트 import
+
 const POSTS_PER_PAGE = 5;
 
 const Comm: React.FC = () => {
   const [posts, setPosts] = useState<Post1[]>([]);
   const [newPost, setNewPost] = useState({ title: '', content: '' });
   const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     const loadPosts = async () => {
       try {
@@ -20,7 +23,6 @@ const Comm: React.FC = () => {
 
     loadPosts();
   }, []);
-  
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -74,14 +76,12 @@ const Comm: React.FC = () => {
           <p style={styles.noPosts}>등록된 게시글이 없습니다.</p>
         ) : (
           <ul style={styles.postsList}>
-            {currentPosts.map((post, index) => (
-              <li key={index} style={styles.postItem}>
+            {currentPosts.map((post) => (
+              <li key={post.id} style={styles.postItem}>
                 <div style={styles.postHeader}>
                   <h3 style={styles.postTitle}>{post.title}</h3>
                   <button
-                    onClick={() =>
-                      handleDelete(index + (currentPage - 1) * POSTS_PER_PAGE)
-                    }
+                    onClick={() => handleDelete(post.id)}
                     style={styles.deleteButton}
                   >
                     x
@@ -92,27 +92,11 @@ const Comm: React.FC = () => {
             ))}
           </ul>
         )}
-        <div style={styles.pagination}>
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            style={styles.pageButton}
-            disabled={currentPage === 1}
-          >
-            이전
-          </button>
-          <span style={styles.pageIndicator}>{currentPage}</span>
-          <button
-            onClick={() =>
-              setCurrentPage((prev) =>
-                Math.min(prev + 1, Math.ceil(posts.length / POSTS_PER_PAGE))
-              )
-            }
-            style={styles.pageButton}
-            disabled={currentPage === Math.ceil(posts.length / POSTS_PER_PAGE)}
-          >
-            다음
-          </button>
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(posts.length / POSTS_PER_PAGE)}
+          onPageChange={setCurrentPage}
+        />
       </div>
       <form onSubmit={handleSubmit} style={styles.form} id="post-form">
         <input
@@ -156,10 +140,6 @@ const styles = {
     marginTop: '20px',
     marginBottom: '80px', // 폼이 고정되므로 여백 추가
   },
-  subHeader: {
-    fontSize: '24px',
-    marginBottom: '10px',
-  },
   noPosts: {
     fontSize: '12px',
     color: '#777',
@@ -194,32 +174,6 @@ const styles = {
     fontSize: '16px',
     cursor: 'pointer',
     padding: '5px',
-  },
-  pagination: {
-    position: 'fixed' as 'fixed',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '200px',
-    margin: '0 auto',
-    bottom: '200px',
-    left: '0',
-    right: '0',
-    zIndex: 2000,
-  },
-  pageButton: {
-    backgroundColor: '#007BFF',
-    border: 'none',
-    color: 'white',
-    padding: '10px 20px',
-    margin: '0 5px',
-    cursor: 'pointer',
-    borderRadius: '5px',
-    fontSize: '16px',
-  },
-  pageIndicator: {
-    fontSize: '16px',
-    margin: '0 10px',
   },
   form: {
     position: 'fixed' as 'fixed',

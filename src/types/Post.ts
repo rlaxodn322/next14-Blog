@@ -23,6 +23,8 @@ export interface Comment {
   date: string;
 }
 export interface Message {
+  data: any;
   id: number;
   content: string;
+  text: string;
 }
