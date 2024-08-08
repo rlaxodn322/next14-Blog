@@ -4,7 +4,7 @@ import { fetchPosts, createPost, deletePost } from '../apis/commapi';
 import { Post1 } from '@/types/Post';
 import Pagination from './Pagination'; // Pagination 컴포넌트 import
 
-const POSTS_PER_PAGE = 5;
+const POSTS_PER_PAGE = 6;
 
 const Comm: React.FC = () => {
   const [posts, setPosts] = useState<Post1[]>([]);
@@ -92,12 +92,12 @@ const Comm: React.FC = () => {
             ))}
           </ul>
         )}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={Math.ceil(posts.length / POSTS_PER_PAGE)}
-          onPageChange={setCurrentPage}
-        />
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(posts.length / POSTS_PER_PAGE)}
+        onPageChange={setCurrentPage}
+      />
       <form onSubmit={handleSubmit} style={styles.form} id="post-form">
         <input
           type="text"
@@ -126,23 +126,25 @@ const styles = {
   container: {
     maxWidth: '600px',
     margin: '0 auto',
-    height: '600px',
+    //height: '600px',
     padding: '20px',
     fontFamily: 'Arial, sans-serif',
     border: '1px solid lightgray',
   },
   header: {
-    fontSize: '18px',
+    fontSize: '15px',
     marginBottom: '20px',
     textAlign: 'center' as 'center',
   },
   postsContainer: {
     marginTop: '20px',
+    height: '400px',
     marginBottom: '80px', // 폼이 고정되므로 여백 추가
   },
   noPosts: {
     fontSize: '12px',
     color: '#777',
+
     textAlign: 'center' as 'center',
   },
   postsList: {
@@ -160,11 +162,11 @@ const styles = {
     alignItems: 'center',
   },
   postTitle: {
-    fontSize: '20px',
+    fontSize: '15px',
     margin: '0 0 5px 0',
   },
   postContent: {
-    fontSize: '16px',
+    fontSize: '14px',
     color: '#555',
   },
   deleteButton: {
@@ -176,12 +178,12 @@ const styles = {
     padding: '5px',
   },
   form: {
-    position: 'fixed' as 'fixed',
+    //position: 'fixed' as 'fixed',
     width: '550px',
     margin: '0 auto',
-    bottom: '0',
-    left: '0',
-    right: '0',
+    // bottom: '0',
+    // left: '0',
+    // right: '0',
     backgroundColor: 'white',
     borderTop: '1px solid #ccc',
     padding: '10px 20px',

@@ -45,6 +45,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '20px',
+    marginBottom: '20px',
   },
   pageButton: {
     backgroundColor: '#007BFF',
