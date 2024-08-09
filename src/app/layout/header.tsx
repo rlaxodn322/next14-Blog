@@ -39,8 +39,9 @@ const App: React.FC = () => (
           <Link href="/community/01">
             <div style={divstyle}>커뮤니티</div>
           </Link>
-
-          <div style={divstyle}>Contact</div>
+          <Link href="/toilet/01">
+            <div style={divstyle}>똥싸개</div>
+          </Link>
         </div>
       </div>
     </div>

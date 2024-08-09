@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Message } from '../../types/Post';
+import { ApiData, Message } from '../../types/Post';
 export const state = atom({
   key: 'state',
   default: [],
@@ -9,4 +9,13 @@ export const state = atom({
 export const chatState = atom<Message[]>({
   key: 'chatState', // 고유한 키
   default: [], // 초기 상태
+});
+
+export const toiletState = atom<ApiData[]>({
+  key: 'toiletState',
+  default: [],
+});
+export const secondToiletState = atom<ApiData[]>({
+  key: 'secondToiletState',
+  default: [],
 });

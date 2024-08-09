@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-
 import TitleBox from '../components/TitleBox';
 import ImgBox from '../components/ImgBox';
 import BlogCard from '../components/BlogCard';

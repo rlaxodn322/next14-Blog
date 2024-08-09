@@ -23,7 +23,8 @@
     "recoil": "^0.7.7",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
-    "styled-components": "^6.1.12"
+    "styled-components": "^6.1.12",
+    "test": "file:"
   },
   "devDependencies": {
     "@types/node": "^20",

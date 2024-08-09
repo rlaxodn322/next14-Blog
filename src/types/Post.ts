@@ -28,3 +28,12 @@ export interface Message {
   content: string;
   text: string;
 }
+
+export interface ApiData {
+  Publtolt: any;
+  data: any;
+  lat: number;
+  lng: number;
+  name: string;
+  address: string;
+}
