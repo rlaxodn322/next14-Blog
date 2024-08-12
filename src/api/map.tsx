@@ -59,7 +59,7 @@ export default function MapComponent({ toilets }: MapComponentProps) {
           });
 
           const infowindow = new window.kakao.maps.InfoWindow({
-            content: `<div style="padding:10px;font-size:12px;">
+            content: `<div style=margin:5px;font-size:10px;">
               <strong>${toilet.name}</strong>
               <br>
               <b>주소:</b> ${toilet.address || '주소 없음'}<br>
