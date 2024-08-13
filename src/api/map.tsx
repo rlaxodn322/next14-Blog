@@ -107,7 +107,7 @@ export default function MapComponent({
     }
 
     const foundToilet = toilets.find((toilet) =>
-      (toilet.address || '').toLowerCase().includes(lowercasedQuery)
+      (toilet.name || '').toLowerCase().includes(lowercasedQuery)
     );
 
     if (foundToilet && map) {
