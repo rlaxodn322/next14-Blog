@@ -8,9 +8,13 @@ declare global {
 
 interface MapComponentProps {
   toilets: { lat: number; lng: number; name: string; address: string | null }[];
+  markerImageSrc: string;
 }
 
-export default function MapComponent({ toilets }: MapComponentProps) {
+export default function MapComponent({
+  toilets,
+  markerImageSrc,
+}: MapComponentProps) {
   const [map, setMap] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -35,12 +39,12 @@ export default function MapComponent({ toilets }: MapComponentProps) {
         setMap(initialMap);
 
         // Create marker image
-        const markerImageSrc = '/icons/toilet(1).svg'; // Marker image source
+        const markerImageSrcFinal = markerImageSrc || null;
         const imageSize = new window.kakao.maps.Size(20, 20); // Size of the marker image
         const imageOption = { offset: new window.kakao.maps.Point(10, 10) }; // Marker position offset
 
         const markerImage = new window.kakao.maps.MarkerImage(
-          markerImageSrc,
+          markerImageSrcFinal,
           imageSize,
           imageOption
         );

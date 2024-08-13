@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { backUrl } from '../config/config';
-import { ApiData } from '@/types/Post';
+import { ApiData, ApiData2 } from '@/types/Post';
 
 axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true;
@@ -20,6 +20,16 @@ export const fetchApiData1 = async (): Promise<ApiData> => {
     return response.data;
   } catch (error) {
     console.error('Fali', error);
+    throw new Error('Fali');
+  }
+};
+
+export const fetchADST = async (): Promise<ApiData2> => {
+  try {
+    const response = await axios.get('api/ADSTdata');
+    return response.data;
+  } catch (error) {
+    console.error('Fail', error);
     throw new Error('Fali');
   }
 };

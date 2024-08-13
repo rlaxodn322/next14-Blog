@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const divparents: React.CSSProperties = {
   margin: '0 auto',
   alignItems: 'center',
-  width: '1200px',
+  width: '1250px',
   display: 'flex',
   justifyContent: 'space-between',
 };
@@ -41,6 +41,9 @@ const App: React.FC = () => (
           </Link>
           <Link href="/toilet/01">
             <div style={divstyle}>똥싸개</div>
+          </Link>
+          <Link href="/adst/01">
+            <div style={divstyle}>명소</div>
           </Link>
         </div>
       </div>

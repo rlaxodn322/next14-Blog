@@ -37,3 +37,10 @@ export interface ApiData {
   name: string;
   address: string;
 }
+export interface ApiData2 {
+  ADST: any;
+  name: string;
+  lat: number;
+  lng: number;
+  address: string;
+}
