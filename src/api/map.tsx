@@ -106,9 +106,16 @@ export default function MapComponent({
       return;
     }
 
-    const foundToilet = toilets.find((toilet) =>
-      (toilet.name || '').toLowerCase().includes(lowercasedQuery)
-    );
+    const foundToilet = toilets.find((toilet) => {
+      const nameMatch = (toilet.name || '')
+        .toLowerCase()
+        .includes(lowercasedQuery);
+      const addressMatch = (toilet.address || '')
+        .toLowerCase()
+        .includes(lowercasedQuery);
+      //(toilet.name || '').toLowerCase().includes(lowercasedQuery)
+      return nameMatch || addressMatch;
+    });
 
     if (foundToilet && map) {
       const position = new window.kakao.maps.LatLng(
