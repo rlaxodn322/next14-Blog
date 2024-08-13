@@ -7,7 +7,14 @@ declare global {
 }
 
 interface MapComponentProps {
-  toilets: { lat: number; lng: number; name: string; address: string | null }[];
+  toilets: {
+    money: string;
+    tel: string;
+    lat: number;
+    lng: number;
+    name: string;
+    address: string | null;
+  }[];
   markerImageSrc: string;
 }
 
@@ -66,7 +73,9 @@ export default function MapComponent({
             content: `<div style=margin:5px;font-size:10px;">
               <strong>${toilet.name}</strong>
               <br>
-              <b>주소:</b> ${toilet.address || '주소 없음'}<br>
+              <b>주소:</b> ${toilet.address || ''}<br>
+              ${toilet.tel ? `<b>전화번호 : </b> ${toilet.tel}<br>` : ''}
+              ${toilet.money ? `<b>전화번호 : </b> ${toilet.money}<br>` : ''}
             </div>`,
           });
 

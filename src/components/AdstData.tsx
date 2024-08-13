@@ -21,6 +21,8 @@ const AdstData = () => {
           lat: parseFloat(adst.REFINE_WGS84_LAT),
           lng: parseFloat(adst.REFINE_WGS84_LOGT),
           address: adst.SIGUN_NM,
+          tel: adst.TELNO,
+          money: adst.ADDITN_INFO_NM,
         }));
 
         setData(extractedData);

@@ -36,6 +36,9 @@ export interface ApiData {
   lng: number;
   name: string;
   address: string;
+  tel: string;
+
+  money: string;
 }
 export interface ApiData2 {
   ADST: any;
@@ -43,4 +46,6 @@ export interface ApiData2 {
   lat: number;
   lng: number;
   address: string;
+  tel: string;
+  money: string;
 }
