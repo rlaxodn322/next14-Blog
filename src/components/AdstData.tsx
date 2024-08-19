@@ -13,7 +13,7 @@ const AdstData = () => {
     const fetchData = async () => {
       try {
         const adstData: ApiData2 = await fetchADST();
-        console.log('서버에서 온 화장실 데이터', adstData);
+        console.log('서버에서 온 명소 데이터', adstData);
 
         // 필요한 데이터만 추출
         const extractedData = adstData.ADST[1].row.map((adst: any) => ({
