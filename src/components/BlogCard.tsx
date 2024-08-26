@@ -48,6 +48,10 @@ const CardItem = styled.div`
 const StyledImage = styled.img`
   width: 10%;
   object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.2); /* 이미지 크기를 1.2배로 확대 */
+  }
 `;
 
 // 이미지 설명
