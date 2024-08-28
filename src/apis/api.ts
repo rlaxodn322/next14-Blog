@@ -8,6 +8,7 @@ axios.defaults.withCredentials = true;
 export const fetchApiData = async (): Promise<ApiData> => {
   try {
     const response = await axios.get('/api/data');
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Fali', error);
@@ -17,6 +18,7 @@ export const fetchApiData = async (): Promise<ApiData> => {
 export const fetchApiData1 = async (): Promise<ApiData> => {
   try {
     const response = await axios.get('/api/data1');
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Fali', error);
@@ -27,6 +29,7 @@ export const fetchApiData1 = async (): Promise<ApiData> => {
 export const fetchADST = async (): Promise<ApiData2> => {
   try {
     const response = await axios.get('api/ADSTdata');
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Fail', error);
