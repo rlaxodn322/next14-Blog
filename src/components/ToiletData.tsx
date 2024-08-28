@@ -1,13 +1,40 @@
 import { useEffect } from 'react';
-import { fetchApiData, fetchApiData1 } from '../apis/api';
+import { fetchApiData } from '../apis/api';
 import { ApiData } from '@/types/Post';
 import { useRecoilState } from 'recoil';
-import { secondToiletState, toiletState } from '../recoil/atoms/state';
+import { toiletState } from '../recoil/atoms/state';
 import MapComponent from '../api/map';
+import styled from 'styled-components';
+
+// Styled-components를 사용한 스타일링
+const Container = styled.div`
+  max-width: 1200px;
+
+  margin: 0 auto;
+  padding: 20px;
+`;
+
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+`;
+
+const MapContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
 
 const ToiletData = () => {
   const [data, setData] = useRecoilState(toiletState);
-  // const [data1, setData1] = useRecoilState(secondToiletState);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,22 +62,12 @@ const ToiletData = () => {
   const markerImageSrc = '/icons/toilet(1).svg';
 
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          margin: '30px',
-          fontSize: '20px',
-          fontWeight: 'bold',
-        }}
-      >
-        경기도 똥싸개
-      </div>
-      <div style={{ display: 'flex', margin: '0 auto' }}>
+    <Container>
+      <Title>경기도 화장실 위치 안내</Title>
+      <MapContainer>
         <MapComponent toilets={data} markerImageSrc={markerImageSrc} />
-      </div>
-    </>
+      </MapContainer>
+    </Container>
   );
 };
 
