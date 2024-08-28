@@ -45,7 +45,7 @@ const ToiletData = () => {
           fontWeight: 'bold',
         }}
       >
-        경기도 화장실
+        경기도 똥싸개
       </div>
       <div style={{ display: 'flex', margin: '0 auto' }}>
         <MapComponent toilets={data} markerImageSrc={markerImageSrc} />
