@@ -11,7 +11,7 @@ export const fetchApiData = async (): Promise<ApiData> => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error('Fali', error);
+    console.error('Fali ', error);
     throw new Error('Fali');
   }
 };

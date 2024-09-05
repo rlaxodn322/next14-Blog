@@ -46,7 +46,7 @@ const CardItem = styled.div`
 
 // 스타일링된 이미지
 const StyledImage = styled.img`
-  width: 10%;
+  width: 50px;
   object-fit: cover;
   transition: transform 0.3s ease-in-out;
   &:hover {
@@ -74,76 +74,76 @@ const BlogCard = () => (
   <CardContainer>
     <CardTitle>Card Title</CardTitle>
     <Grid>
-      <Link href="/about/01">
+      <Link href="/board/01">
         <CardItem>
           <StyledImage
-            src="/icons/icon-sun.svg" // 실제 이미지 경로로 변경
+            src="/icons/blog.svg" // 실제 이미지 경로로 변경
             alt="Description"
           />
           <ImageDescription>
-            <h3>Small Title</h3>
+            <h3>Blog Title</h3>
             <p>Additional description or details can go here.</p>
           </ImageDescription>
         </CardItem>
       </Link>
-      <Link href="/blog/01">
+      <Link href="/shop/01">
         <CardItem>
           <StyledImage
-            src="/icons/icon-sun.svg" // 실제 이미지 경로로 변경
+            src="/icons/shop.svg" // 실제 이미지 경로로 변경
             alt="Description"
           />
           <ImageDescription>
-            <h3>Small Title</h3>
+            <h3>Shop Title</h3>
             <p>Additional description or details can go here.</p>
           </ImageDescription>
         </CardItem>
       </Link>
-      <Link href="/post/01">
+      <Link href="/chat/01">
         <CardItem>
           <StyledImage
-            src="/icons/icon-moon.svg" // 실제 이미지 경로로 변경
+            src="/icons/chat.svg" // 실제 이미지 경로로 변경
             alt="Description"
           />
           <ImageDescription>
-            <h3>Small Title</h3>
+            <h3>Chat Title</h3>
             <p>Additional description or details can go here.</p>
           </ImageDescription>
         </CardItem>
       </Link>
     </Grid>
     <Grid>
-      <Link href="/about/01">
+      <Link href="/groupchat/01">
         <CardItem>
           <StyledImage
-            src="/icons/icon-sun.svg" // 실제 이미지 경로로 변경
+            src="/icons/group.svg" // 실제 이미지 경로로 변경
             alt="Description"
           />
           <ImageDescription>
-            <h3>Small Title</h3>
+            <h3>GroupChat Title</h3>
             <p>Additional description or details can go here.</p>
           </ImageDescription>
         </CardItem>
       </Link>
-      <Link href="/blog/01">
+      <Link href="/community/01">
         <CardItem>
           <StyledImage
-            src="/icons/icon-sun.svg" // 실제 이미지 경로로 변경
+            src="/icons/comm.svg" // 실제 이미지 경로로 변경
             alt="Description"
           />
           <ImageDescription>
-            <h3>Small Title</h3>
+            <h3>community Title</h3>
             <p>Additional description or details can go here.</p>
           </ImageDescription>
         </CardItem>
       </Link>
-      <Link href="/post/01">
+      <Link href="/toilet/01">
         <CardItem>
           <StyledImage
-            src="/icons/icon-moon.svg" // 실제 이미지 경로로 변경
+            src="/icons/poop.svg" // 실제 이미지 경로로 변경
             alt="Description"
           />
           <ImageDescription>
-            <h3>Small Title</h3>
+            <h3>toilet Title</h3>
             <p>Additional description or details can go here.</p>
           </ImageDescription>
         </CardItem>
