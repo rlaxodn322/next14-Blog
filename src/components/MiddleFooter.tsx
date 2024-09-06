@@ -11,27 +11,27 @@ const MainBox = styled.div`
 const SubBox = styled.div`
   margin: 10px;
   height: 90%;
-  width: 20%; 
+  width: 20%;
   //border: 1px solid lightgray;
 `;
 const TitleBox = styled.div`
   margin-bottom: 20px;
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
-  &:hover {      
-    transform: scale(1.3);
+  &:hover {
+    transform: scale(1.1);
   }
 `;
 const ImgBox = styled.div`
   display: flex;
-`;   
+`;
 const Img2 = styled.img`
   width: 15%;
   margin-right: 10px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
   &:hover {
-    transform: scale(1.3);
+    transform: scale(1.1);
   }
 `;
 const StoryBox = styled.div`
@@ -39,7 +39,7 @@ const StoryBox = styled.div`
   margin-top: 5px;
   transition: transform 0.3s ease-in-out;
   &:hover {
-    transform: scale(1.3);
+    transform: scale(1.1);
   }
 `;
 const MiddleFooter: React.FC = () => {
